@@ -1,5 +1,8 @@
 package com.mamezou.fw.jpa.dao.impl;
 
+import javax.annotation.Resource;
+import javax.persistence.EntityManager;
+
 import com.mamezou.fw.jpa.dao.GenericDao;
 import com.mamezou.fw.jpa.entity.Entity;
 import com.mamezou.fw.jpa.entity.LogicallyDeletableEntity;
@@ -7,8 +10,15 @@ import com.mamezou.fw.jpa.entity.LogicallyDeletableEntity;
 /**
  * 汎用データアクセスオブジェクトベース実装クラス．
  */
-public abstract class GenericDaoImpl<E extends Entity<PK>, E2 extends LogicallyDeletableEntity<PK>, PK> 
-extends ReadOnlyGenericDaoImpl<E, PK> implements GenericDao<E, E2, PK> {
+public abstract class GenericDaoImpl<E extends Entity<PK>, 
+		E2 extends LogicallyDeletableEntity<PK, DF>, PK, DF> 
+	extends ReadOnlyGenericDaoImpl<E, PK> implements GenericDao<E, E2, PK, DF> {
+	
+	private static final String JNDI_ENV = "java:app/entitymanager/";
+
+    @Resource
+    private SessionContext ctx;	
+	
     public void persist(E entity) {
         em.persist(entity);
     }
@@ -27,7 +37,7 @@ extends ReadOnlyGenericDaoImpl<E, PK> implements GenericDao<E, E2, PK> {
 
     @SuppressWarnings("unchecked")
 	public void deleteLogically(E2 entity) {
-    	entity.setDeleteFlg(1);
+    	entity.delete();
         update((E)entity);
     }
 
@@ -35,4 +45,17 @@ extends ReadOnlyGenericDaoImpl<E, PK> implements GenericDao<E, E2, PK> {
 	public void deleteLogically(PK pk) {
         deleteLogically((E2)em.getReference(this.entityType, pk));
     }
+    
+    private EntityManager entityManager(String dataSourceName) {
+
+        final EntityManager entityManager = (EntityManager) ctx.lookup(JNDI_ENV + dataSourceName);
+
+        if (entityManager == null) {
+            throw new RuntimeException("Unknown data source name '" + dataSourceName + "'.");
+        }
+
+        return entityManager;
+
+    }
+
 }

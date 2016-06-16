@@ -6,7 +6,7 @@ import com.mamezou.fw.jpa.entity.LogicallyDeletableEntity;
 /**
  * 汎用データアクセスオブジェクトインタフェース．
  */
-public interface GenericDao<E extends Entity<PK>, E2 extends LogicallyDeletableEntity<PK>, PK>
+public interface GenericDao<E extends Entity<PK>, E2 extends LogicallyDeletableEntity<PK, DF>, PK, DF>
 		extends ReadOnlyGenericDao<E, PK> {
 	void persist(E entity);
 

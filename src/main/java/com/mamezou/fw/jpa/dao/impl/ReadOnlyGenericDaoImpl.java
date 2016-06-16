@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.LockModeType;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
@@ -73,5 +74,9 @@ public abstract class ReadOnlyGenericDaoImpl<E extends Entity<PK>, PK> implement
 
     public E findByPk(PK pk) {
         return em.find(this.entityType, pk);
+    }
+
+    public E findByPkWithLock(PK pk) {
+        return em.find(this.entityType, pk, LockModeType.PESSIMISTIC_WRITE);
     }
 }
