@@ -3,6 +3,7 @@ package com.mamezou.fw.logging;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.annotation.Priority;
 import javax.annotation.Resource;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
@@ -13,14 +14,14 @@ import javax.interceptor.InvocationContext;
 @Interceptor // インターセプターの宣言
 @Dependent
 @WithLogging // バインド用アノテーション
-@Priority(Interceptor.Priority.APPLICATION) // 優先度 
+//@Priority(Interceptor.Priority.APPLICATION) // 優先度 
 public class LoggingInterceptor {
     // プロデューサー経由でロガー取得
     @Inject
     private Logger logger;
     
     // アプリケーション名の取得
-    @Resource(lookup="java:app/AppName")
+    @Resource(name = "java:app/AppName")
     String appName;
     
     /** 

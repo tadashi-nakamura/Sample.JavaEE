@@ -9,7 +9,7 @@ import javax.persistence.MappedSuperclass;
  * @param <PK>
  */
 @MappedSuperclass
-public abstract class BaseEntity<PK, DF> implements LogicallyDeletableEntity<PK, DF> {
+public abstract class BaseEntity<PK, DF> implements Entity<PK>, LogicallyDeletable<PK, DF> {
 
 	@Column(name = "DELETE_FLG", nullable = false)
 	private DF deleteFlg;

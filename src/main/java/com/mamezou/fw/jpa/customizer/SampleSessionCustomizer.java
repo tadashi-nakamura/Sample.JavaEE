@@ -22,5 +22,8 @@ public class SampleSessionCustomizer implements SessionCustomizer {
 		SessionLog customLogger = new CustomJpaLogger();
 		customLogger.setLevel(1); // Logging level finest
 		session.setSessionLog(customLogger);
+		
+		// set schema
+		session.getLogin().setTableQualifier("SCOTT");
 	}
 }

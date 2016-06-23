@@ -1,17 +1,18 @@
 package com.mamezou.fw.jpa.dao.impl;
 
 import javax.annotation.Resource;
+import javax.ejb.SessionContext;
 import javax.persistence.EntityManager;
 
 import com.mamezou.fw.jpa.dao.GenericDao;
 import com.mamezou.fw.jpa.entity.Entity;
-import com.mamezou.fw.jpa.entity.LogicallyDeletableEntity;
+import com.mamezou.fw.jpa.entity.LogicallyDeletable;
 
 /**
  * 汎用データアクセスオブジェクトベース実装クラス．
  */
 public abstract class GenericDaoImpl<E extends Entity<PK>, 
-		E2 extends LogicallyDeletableEntity<PK, DF>, PK, DF> 
+		E2 extends LogicallyDeletable<PK, DF>, PK, DF> 
 	extends ReadOnlyGenericDaoImpl<E, PK> implements GenericDao<E, E2, PK, DF> {
 	
 	private static final String JNDI_ENV = "java:app/entitymanager/";

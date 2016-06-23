@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
@@ -23,7 +23,7 @@ import com.mamezou.fw.jpa.entity.Entity;
  */
 public abstract class ReadOnlyGenericDaoImpl<E extends Entity<PK>, PK> implements ReadOnlyGenericDao<E, PK> {
     /** entity manager */
-    @PersistenceContext
+    @Inject
     protected EntityManager em;
 
     /** entity type */

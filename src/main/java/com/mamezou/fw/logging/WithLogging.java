@@ -1,15 +1,17 @@
 package com.mamezou.fw.logging;
 
+import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 import javax.interceptor.InterceptorBinding;
 
 @Inherited
 @InterceptorBinding // インターセプターのバインド
-@Retention(RUNTIME)
-@Target({METHOD, TYPE})
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.METHOD, ElementType.TYPE})
 public @interface WithLogging {
 
 }

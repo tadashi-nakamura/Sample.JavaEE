@@ -7,8 +7,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 
 	<properties>
-		<java.source.version>1.7</java.source.version>
-		<java.target.version>1.7</java.target.version>
+		<java.source.version>1.8</java.source.version>
+		<java.target.version>1.8</java.target.version>
 		<eclipselink.version>2.6.3</eclipselink.version>
 		<path.to.persistencexml>src/main/resources/META-INF/persistence.xml</path.to.persistencexml>
 		<deltaspike.version>1.6.0</deltaspike.version>

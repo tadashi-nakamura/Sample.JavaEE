@@ -1,12 +1,12 @@
 package com.mamezou.fw.jpa.dao;
 
 import com.mamezou.fw.jpa.entity.Entity;
-import com.mamezou.fw.jpa.entity.LogicallyDeletableEntity;
+import com.mamezou.fw.jpa.entity.LogicallyDeletable;
 
 /**
  * 汎用データアクセスオブジェクトインタフェース．
  */
-public interface GenericDao<E extends Entity<PK>, E2 extends LogicallyDeletableEntity<PK, DF>, PK, DF>
+public interface GenericDao<E extends Entity<PK>, E2 extends LogicallyDeletable<PK, DF>, PK, DF>
 		extends ReadOnlyGenericDao<E, PK> {
 	void persist(E entity);
 
