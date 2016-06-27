@@ -26,6 +26,7 @@
             <property name="eclipselink.logging.session" value="true"/>
             <property name="eclipselink.logging.thread" value="false"/>
             <property name="eclipselink.logging.exceptions" value="true"/>
+            <property name="jdbc.persistence.logging" value="true" />
                         
             <!-- customizer -->
             <property name="eclipselink.session.customizer"

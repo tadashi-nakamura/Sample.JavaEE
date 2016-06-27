@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- for WebSphere -->
+<ejb-jar-ext xmlns="http://websphere.ibm.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://websphere.ibm.com/xml/ns/javaee http://websphere.ibm.com/xml/ns/javaee/ibm-ejb-jar-ext_1_0.xsd"
+	version="1.0" metadata-complete="true">
+	<session name="NewOrderSessionFacadeBean">
+	    <!-- Isolation Level Setting -->
+		<resource-ref name="jdbc/ERWWDataSourceV5"
+			isolation-level="TRANSACTION_READ_COMMITTED" />
+		<resource-ref name="jdbc/ERWWDataSourceV5_HP"
+			isolation-level="TRANSACTION_READ_COMMITTED" />
+	</session>
+</ejb-jar-ext>

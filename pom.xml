@@ -1,117 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>com.mamezou.sample</groupId>
-	<artifactId>jpa</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>com.mamezou.sample</groupId>
+    <artifactId>jpa</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-	<properties>
-		<java.source.version>1.8</java.source.version>
-		<java.target.version>1.8</java.target.version>
-		<eclipselink.version>2.6.3</eclipselink.version>
-		<path.to.persistencexml>src/main/resources/META-INF/persistence.xml</path.to.persistencexml>
-		<deltaspike.version>1.6.0</deltaspike.version>
-	</properties>
+    <properties>
+        <java.source.version>1.8</java.source.version>
+        <java.target.version>1.8</java.target.version>
+        <eclipselink.version>2.6.3</eclipselink.version>
+        <path.to.persistencexml>src/main/resources/META-INF/persistence.xml</path.to.persistencexml>
+        <deltaspike.version>1.6.0</deltaspike.version>
+    </properties>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.3</version>
-				<configuration>
-					<source>${java.source.version}</source>
-					<target>${java.target.version}</target>
-					<!-- <compilerArgs> <arg>-Aeclipselink.persistencexml=${path.to.persistencexml}</arg> 
-						</compilerArgs> -->
-				</configuration>
-			</plugin>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.3</version>
+                <configuration>
+                    <source>${java.source.version}</source>
+                    <target>${java.target.version}</target>
+                    <!-- <compilerArgs> <arg>-Aeclipselink.persistencexml=${path.to.persistencexml}</arg> 
+                        </compilerArgs> -->
+                </configuration>
+            </plugin>
 
-			<!-- TODO -->
-			<!-- <plugin> <groupId>org.bsc.maven</groupId> <artifactId>maven-processor-plugin</artifactId> 
-				<executions> <execution> <id>process</id> <goals> <goal>process</goal> </goals> 
-				<phase>generate-sources</phase> <configuration> <processors> <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor> 
-				</processors> <compilerArguments>-Aeclipselink.persistencexml=${path.to.persistencexml}</compilerArguments> 
-				<outputDirectory>${project.build.directory}/generated-sources/meta-model</outputDirectory> 
-				</configuration> </execution> </executions> <dependencies> <dependency> <groupId>org.eclipse.persistence</groupId> 
-				<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId> <version>${eclipselink.version}</version> 
-				<scope>provided</scope> </dependency> </dependencies> </plugin> -->
-		</plugins>
-	</build>
+            <!-- TODO -->
+            <!-- <plugin> <groupId>org.bsc.maven</groupId> <artifactId>maven-processor-plugin</artifactId> 
+                <executions> <execution> <id>process</id> <goals> <goal>process</goal> </goals> 
+                <phase>generate-sources</phase> <configuration> <processors> <processor>org.eclipse.persistence.internal.jpa.modelgen.CanonicalModelProcessor</processor> 
+                </processors> <compilerArguments>-Aeclipselink.persistencexml=${path.to.persistencexml}</compilerArguments> 
+                <outputDirectory>${project.build.directory}/generated-sources/meta-model</outputDirectory> 
+                </configuration> </execution> </executions> <dependencies> <dependency> <groupId>org.eclipse.persistence</groupId> 
+                <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId> <version>${eclipselink.version}</version> 
+                <scope>provided</scope> </dependency> </dependencies> </plugin> -->
+        </plugins>
+    </build>
 
-	<dependencyManagement>
-		<dependencies>
-			<dependency>
-				<groupId>org.apache.deltaspike.distribution</groupId>
-				<artifactId>distributions-bom</artifactId>
-				<version>${deltaspike.version}</version>
-				<type>pom</type>
-				<scope>import</scope>
-			</dependency>
-		</dependencies>
-	</dependencyManagement>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.apache.deltaspike.distribution</groupId>
+                <artifactId>distributions-bom</artifactId>
+                <version>${deltaspike.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
 
-	<dependencies>
-		<!-- JPA -->
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.jpa</artifactId>
-			<version>${eclipselink.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.core</artifactId>
-			<version>${eclipselink.version}</version>
-		</dependency>
+    <dependencies>
+        <!-- JPA -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa</artifactId>
+            <version>${eclipselink.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.core</artifactId>
+            <version>${eclipselink.version}</version>
+        </dependency>
 
-		<!-- JPA metamodel processor -->
-		<dependency>
-			<groupId>org.eclipse.persistence</groupId>
-			<artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
-			<version>${eclipselink.version}</version>
-			<optional>true</optional>
-		</dependency>
+        <!-- JPA metamodel processor -->
+        <dependency>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>org.eclipse.persistence.jpa.modelgen.processor</artifactId>
+            <version>${eclipselink.version}</version>
+            <optional>true</optional>
+        </dependency>
 
-		<!-- CDI -->
-		<dependency>
-			<groupId>javax.enterprise</groupId>
-			<artifactId>cdi-api</artifactId>
-			<version>1.1</version>
-		</dependency>
+        <!-- CDI -->
+        <dependency>
+            <groupId>javax.enterprise</groupId>
+            <artifactId>cdi-api</artifactId>
+            <version>1.1</version>
+        </dependency>
 
         <!-- JavaEE7 -->
-		<dependency>
-			<groupId>javax</groupId>
-			<artifactId>javaee-api</artifactId>
-			<version>7.0</version>
-		</dependency>
+        <dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <version>7.0</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- DeltaSpike -->
-		<dependency>
-			<groupId>org.apache.deltaspike.core</groupId>
-			<artifactId>deltaspike-core-api</artifactId>
-			<version>${deltaspike.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.deltaspike.core</groupId>
-			<artifactId>deltaspike-core-impl</artifactId>
-			<version>${deltaspike.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.deltaspike.modules</groupId>
-			<artifactId>deltaspike-jpa-module-api</artifactId>
-			<version>${deltaspike.version}</version>
-			<scope>compile</scope>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.deltaspike.modules</groupId>
-			<artifactId>deltaspike-jpa-module-impl</artifactId>
-			<version>${deltaspike.version}</version>
-			<scope>runtime</scope>
-		</dependency>
-	</dependencies>
+        <!-- DeltaSpike -->
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.core</groupId>
+            <artifactId>deltaspike-core-impl</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-jpa-module-api</artifactId>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.deltaspike.modules</groupId>
+            <artifactId>deltaspike-jpa-module-impl</artifactId>
+            <scope>runtime</scope>
+        </dependency>
+    </dependencies>
 </project>

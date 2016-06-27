@@ -79,4 +79,9 @@ public abstract class ReadOnlyGenericDaoImpl<E extends Entity<PK>, PK> implement
     public E findByPkWithLock(PK pk) {
         return em.find(this.entityType, pk, LockModeType.PESSIMISTIC_WRITE);
     }
+
+    public E findByPkWithLock(PK pk, Map<String,Object> options) {
+		// options.put("javax.persistence.lock.timeout", 0);
+		return em.find(this.entityType, pk, LockModeType.PESSIMISTIC_WRITE, options);
+    }
 }

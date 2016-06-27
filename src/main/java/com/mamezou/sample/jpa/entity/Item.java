@@ -1,14 +1,27 @@
 package com.mamezou.sample.jpa.entity;
 
 import javax.persistence.Column;
+import javax.persistence.ColumnResult;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.SequenceGenerator;
+import javax.persistence.SqlResultSetMapping;
 import javax.persistence.Table;
 
 import com.mamezou.fw.jpa.entity.BaseEntity;
 
 // TODO EntityListener
+@SqlResultSetMapping(
+		name = "value1_count",
+		columns={
+				@ColumnResult(name=""),
+				@ColumnResult(name=""),
+		}
+		)
+@NamedNativeQuery(
+		name = "", 
+		query = "")
 @Entity
 @Table(name="M_ITEM")
 public class Item extends BaseEntity<Long, Boolean> {
