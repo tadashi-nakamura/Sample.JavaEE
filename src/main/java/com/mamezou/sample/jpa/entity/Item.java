@@ -20,8 +20,8 @@ import com.mamezou.fw.jpa.entity.BaseEntity;
 		}
 		)
 @NamedNativeQuery(
-		name = "", 
-		query = "")
+		name = "Item.findAll", 
+		query = "SELECT e FROM Item e")
 @Entity
 @Table(name="M_ITEM")
 public class Item extends BaseEntity<Long, Boolean> {
