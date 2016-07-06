@@ -1,7 +1,6 @@
 package com.mamezou.fw.jpa.customizer;
 
 import org.eclipse.persistence.config.SessionCustomizer;
-import org.eclipse.persistence.logging.SessionLog;
 //import org.eclipse.persistence.dynamic.DynamicHelper.SessionCustomizer;
 import org.eclipse.persistence.sessions.DatabaseLogin;
 import org.eclipse.persistence.sessions.Session;
@@ -19,9 +18,8 @@ public class SampleSessionCustomizer implements SessionCustomizer {
 		// login.setTransactionIsolation(DatabaseLogin.TRANSACTION_SERIALIZABLE);
 		
 		// create a custom logger
-		SessionLog customLogger = new CustomJpaLogger();
-		customLogger.setLevel(1); // Logging level finest
-		session.setSessionLog(customLogger);
+		session.setSessionLog(new CustomJpaLogger());
+		session.getSessionLog().setLevel(1); // Logging level finest
 		
 		// set schema
 		session.getLogin().setTableQualifier("SCOTT");
