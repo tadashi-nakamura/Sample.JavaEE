@@ -9,11 +9,12 @@ import java.util.Map;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.LockModeType;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
 import com.mamezou.fw.jpa.dao.ReadOnlyGenericDao;
 import com.mamezou.fw.jpa.entity.Entity;
@@ -36,18 +37,42 @@ public abstract class ReadOnlyGenericDaoImpl<E extends Entity<PK>, PK> implement
         this.entityType = (Class<E>) pt.getActualTypeArguments()[0];
     }
 
-    public long countAll(Map<String, Object> params) {
-        final StringBuilder queryString = new StringBuilder( "SELECT count(o) from ");
+    public long countAll(Map<SingularAttribute<E, ?>, ?> params) {
+        final StringBuilder queryString = new StringBuilder( "SELECT count(e) from ");
+        queryString.append(this.entityType.getSimpleName()).append(" e ");
+        StringBuilder condition = new StringBuilder("where ");
+        params.forEach((attribute, value) -> {
+            condition.append(attribute.getName()).append(" = :").append(attribute.getName()).append(" and ");
+        });
+        
+        queryString.append(condition);
 
-        queryString.append(this.entityType.getSimpleName()).append(" o ");
-        queryString.append(this.getQueryClauses(params, null));
+        TypedQuery<Long> query = this.em.createQuery(queryString.toString(), Long.class);
+        params.forEach((name, value) -> {
+            query.setParameter(name.getName(), value);
+        });
 
-        final Query query = this.em.createQuery(queryString.toString());
-
-        return (Long) query.getSingleResult();
+        return query.getSingleResult();
     }
 
-    protected abstract String getQueryClauses(Map<String, Object> params, Object object);
+    protected abstract CharSequence getConditionClauses(Map<SingularAttribute<E, ?>, ?> params);
+
+    public long countAllCriteria(Map<SingularAttribute<E, ?>, ?> params) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Long> query = cb.createQuery(Long.class);
+        Root<E> root = query.from(entityType);
+        query.select(cb.count(root));
+        query = appendCriteriaQueryCondition(cb, root, query, params);
+        return em.createQuery(query).getSingleResult();
+    }
+
+    private <T> CriteriaQuery<T> appendCriteriaQueryCondition(CriteriaBuilder cb, Root<E> root,
+            CriteriaQuery<T> query, Map<SingularAttribute<E, ?>, ?> params) {
+        params.forEach((name, value) -> {
+            query.where(cb.equal(root.get(name), value));
+        });
+        return query;
+    }
 
 	public List<E> findAll() {
         CriteriaQuery<E> criteria = em.getCriteriaBuilder().createQuery(this.entityType);
